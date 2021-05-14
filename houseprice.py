@@ -22,7 +22,8 @@ import scipy.stats as stats  # For statistical inference
 
 os.chdir(r'C:\Users\guill\Desktop\master\ejercicio_house_price\tarea_house_price')
 
-houseprices = pd.read_csv(r'C:\Users\guill\Desktop\master\ejercicio_house_price\tarea_house_price\resources\houseprice.csv')
+houseprices = pd.read_csv(r'C:\Users\guill\Desktop\master\ejercicio_house_price\tarea_house_price\resources\houseprice.csv', sep=';',
+                          decimal=",")
 
 
 
