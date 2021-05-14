@@ -26,8 +26,20 @@ houseprices = pd.read_csv(r'C:\Users\guill\Desktop\master\ejercicio_house_price\
                           decimal=",")
 
 
+#%% Exploración general
+
+houseprices.info #informacion general del dataset
+houseprices.dtypes  #tipo de dato de cada columna
+houseprices.head(10) #head
+houseprices.tail(10) #tail
+houseprices.shape #nº filas y columnas
+houseprices.columns #nombre de las columnas
+pd.set_option("max_rows", 90) #poder visualizar todas las columnas en consola
+pd.isnull(houseprices).sum() #numero de valores null por columna
 
 #%% Exploración gráfica del objetivo (precio de la vivienda).
+
+
 
 
 
