@@ -13,6 +13,7 @@ import pandas as pd #importamos panda con el nick pd
 import numpy as np #importamos numpy para operaciones sobre vectores y matrices
 import matplotlib.pyplot as plt #importamos matplotlib para plots
 import datetime as dt
+from datetime import datetime
 import seaborn as sn
 from pandas.api.types import CategoricalDtype #For definition of custom categorical data types (ordinal if necesary)
 import scipy.stats as stats  # For statistical inference 
@@ -312,3 +313,22 @@ plt.show()
 
 
 #%%
+
+#Identificar variables numéricas: cuántas son, cuántas continuas, cuántas son fecha. ¿Requieren transformación? pues transformadlas. Las variables fecha transformadlas en variables "utilizables" en el entrenamiento de un modelo.
+
+#variables categoricas
+
+print(houseprices.select_dtypes(exclude=np.number).columns)
+
+#variables numericas
+
+print(houseprices.select_dtypes(include=np.number).columns)
+
+#pasamos la columna del año a tipo fecha
+
+houseprices['YrSold'] = houseprices['YrSold'].astype('object')
+
+houseprices['YrSold'] =  pd.to_datetime(houseprices['YrSold'], format='%Y')
+
+houseprices['YrSold'] = houseprices['YrSold'].dt.strftime('%Y')
+
