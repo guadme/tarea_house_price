@@ -117,31 +117,8 @@ plt.text(2008.7,1.642e9,text2, bbox=props2)
 
 plt.show()
 
+
 #%%
 
-houseprices_numeric = houseprices.select_dtypes(include=np.number)
-
-houseprices_numeric_1 = houseprices_numeric.iloc[:,0:10]
-houseprices_numeric_2 = houseprices_numeric.iloc[:,11:20]
-houseprices_numeric_3 = houseprices_numeric.iloc[:,21:30]
-houseprices_numeric_4 = houseprices_numeric.iloc[:,30:]
-
-
-
-houseprices_numeric_corr1 = houseprices_numeric_1.corr()
-sn.heatmap(houseprices_numeric_corr1, annot = True, vmin=-1, vmax=1, center= 0,cmap= 'coolwarm',fmt='.1g',annot_kws={"size":8},linewidths=1, linecolor='black')
-plt.show()
-
-houseprices_numeric_corr2 = houseprices_numeric_2.corr()
-sn.heatmap(houseprices_numeric_corr2,annot = True, vmin=-1, vmax=1, center= 0,cmap= 'coolwarm',fmt='.1g',annot_kws={"size":8},linewidths=1, linecolor='black')
-plt.show()
-
-houseprices_numeric_corr3 = houseprices_numeric_3.corr()
-sn.heatmap(houseprices_numeric_corr3, annot = True, vmin=-1, vmax=1, center= 0,cmap= 'coolwarm',fmt='.1g',annot_kws={"size":8},linewidths=1, linecolor='black')
-plt.show()
-
-houseprices_numeric_corr4 = houseprices_numeric_4.corr()
-sn.heatmap(houseprices_numeric_corr4, annot = True, vmin=-1, vmax=1, center= 0,cmap= 'coolwarm',fmt='.1g',annot_kws={"size":8},linewidths=1, linecolor='black')
-plt.show()
 
 
