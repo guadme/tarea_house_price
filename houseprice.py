@@ -133,3 +133,80 @@ plt.xticks(rotation=90, fontsize=8)
 
 
 #%% 
+
+#2. Identificar valores faltantes: crear variables binarias y obtener un gráfico respecto de la variable objetivo.
+
+#obtenemos numero de valores faltantes por columna
+
+houseprices_nan_cols = ((pd.isnull(houseprices).sum()).to_frame()).reset_index()
+
+houseprices_nan_cols = houseprices_nan_cols.rename(columns={'index' : 'variable', 0 : 'nan_number'})
+
+#eliminamos de houseprices_nan_cols las columnas que no tienen nan
+
+
+houseprices_nan_cols = houseprices_nan_cols.drop(houseprices_nan_cols[houseprices_nan_cols['nan_number']==0].index)
+
+
+#Para las columnas numericas:
+    
+    # Vemos que hay columnas NUMERICAS con muchos valores perdidos,
+    # se van a seguir los siguientes métodos dependiendo
+    # la cantidad de valores nan:
+    
+        # - Más del 75% columna nan -> Eliminar columna: No aporta la suficiente info.
+        # - Menos del 5% columna nan -> Se eliminan los registros
+        # - El resto -> Media de la columna
+    
+
+#Creamos tres columnas: Over_75, Under_5, Other:
+    
+    #Over_75: True si el numero de nan es mayor al 75% del total
+    ##Under_5: True si el numero de nan es mmenor al 5% del total
+    #Other: Other
+
+
+houseprices_nan_cols['over_75'] = [True if s > ((houseprices['Id'].count())*0.75) else False for s in houseprices_nan_cols['nan_number']]
+
+houseprices_nan_cols['Under_5'] = [True if s < ((houseprices['Id'].count())*0.05) else False for s in houseprices_nan_cols['nan_number']]
+
+houseprices_nan_cols['other'] = [True if ((s < ((houseprices['Id'].count())*0.75)) & (s > ((houseprices['Id'].count())*0.05))) else False for s in houseprices_nan_cols['nan_number']] 
+
+
+#Obtenemos las columnas a eliminar
+
+del_col = ((houseprices_nan_cols[houseprices_nan_cols['over_75'] == True]).variable).to_list()
+
+#obtenemos columnas para eliminar registros
+
+del_row = ((houseprices_nan_cols[houseprices_nan_cols['Under_5'] == True]).variable).to_list()
+
+#columnas para hacer la media
+
+mean_col = ((houseprices_nan_cols[houseprices_nan_cols['other'] == True]).variable).to_list()
+
+houseprices_test = houseprices
+
+#Ahora aplicamos los cambios al dataset
+
+houseprices = houseprices.drop(columns=del_col)
+
+mean_col_num = ((houseprices[mean_col].select_dtypes(exclude='object')).columns).to_list()
+
+[houseprices[col].fillna(houseprices[col].mean(), inplace=True) for col in mean_col_num]
+
+pd.isnull(houseprices).sum()
+
+#Para el resto de variables categóricas eliminaremos la columna FireplaceQu
+
+houseprices.drop(['FireplaceQu'], axis = 1, inplace=True)
+
+
+#utilizamos dropna para el resto de las categoricas
+
+houseprices = houseprices.dropna()
+
+pd.isnull(houseprices).sum()
+
+#%%
+
