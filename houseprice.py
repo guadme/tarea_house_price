@@ -210,3 +210,105 @@ pd.isnull(houseprices).sum()
 
 #%%
 
+
+
+# 3. Outliers
+
+#Como hemos visto en el primer apartado
+
+
+M = houseprices.SalePrice.mean()
+S=houseprices.SalePrice.std()
+c1=M-S
+c2=M+S
+x=houseprices.SalePrice
+
+
+plt.hist(x, edgecolor="Black")
+plt.ylabel("Frecuency")
+plt.xlabel("Price")
+plt.title("Figure 1. Price Histogram")
+
+plt.axvline(x=M,
+            linewidth=1,
+            linestyle="solid",
+            Color="red",
+            label="Mean")
+
+plt.axvline(x=c1,
+            linewidth=1,
+            linestyle="dashed",
+            Color="green",
+            label="- SD")
+
+plt.axvline(x=c2,
+            linewidth=1,
+            linestyle="dashed",
+            Color="green",
+            label="+ SD")
+
+count = houseprices.SalePrice.count()
+
+text= ('Count = ' + str(count))
+
+props=dict(boxstyle="round", facecolor="white", lw=0.5)
+plt.text(0,760,text, bbox=props)
+plt. legend(loc='upper left', bbox_to_anchor=(0.73, 0.98))
+plt.show()
+
+
+#vemos ciertos outliers en 0
+
+#elimino los datos con valores de precio = 0 y vuelvo a hacer la grafica
+
+
+
+houseprices = houseprices.drop(houseprices[houseprices['SalePrice']<0.25e9].index)
+
+
+#%%
+
+houseprices_out = houseprices
+
+M = houseprices_out.SalePrice.mean()
+S=houseprices_out.SalePrice.std()
+c1=M-S
+c2=M+S
+x=houseprices_out.SalePrice
+
+
+plt.hist(x, edgecolor="Black")
+plt.ylabel("Frecuency")
+plt.xlabel("Price")
+plt.title("Figure 1. Price Histogram")
+
+plt.axvline(x=M,
+            linewidth=1,
+            linestyle="solid",
+            Color="red",
+            label="Mean")
+
+plt.axvline(x=c1,
+            linewidth=1,
+            linestyle="dashed",
+            Color="green",
+            label="- SD")
+
+plt.axvline(x=c2,
+            linewidth=1,
+            linestyle="dashed",
+            Color="green",
+            label="+ SD")
+
+count = houseprices_out.SalePrice.count()
+
+text= ('Count = ' + str(count))
+
+props=dict(boxstyle="round", facecolor="white", lw=0.5)
+plt.text(2.4e9,300,text, bbox=props)
+plt. legend(loc='upper left', bbox_to_anchor=(0.73, 0.98))
+plt.show()
+
+
+
+#%%
