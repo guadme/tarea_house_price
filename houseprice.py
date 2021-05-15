@@ -332,3 +332,13 @@ houseprices['YrSold'] =  pd.to_datetime(houseprices['YrSold'], format='%Y')
 
 houseprices['YrSold'] = houseprices['YrSold'].dt.strftime('%Y')
 
+#%%
+
+# Feature selection
+
+
+#Para este apartado podemos utilizar la figura realizada en el apartado de correlacion,
+#pudiendo elegir las variables con mas correlacion.
+
+
+#github: https://github.com/guadme/tarea_house_price
