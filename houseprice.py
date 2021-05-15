@@ -120,5 +120,16 @@ plt.show()
 
 #%%
 
+#Correlacion con las variables numericas
+
+price_corr = houseprices.corr().iloc[:,1]
+price_corr = price_corr.to_frame()
+price_corr.reset_index(inplace=True)
+
+price_corr = price_corr.drop([1],axis=0)
+
+plt.bar(price_corr['index'],price_corr['SalePrice'])
+plt.xticks(rotation=90, fontsize=8)
 
 
+#%% 
